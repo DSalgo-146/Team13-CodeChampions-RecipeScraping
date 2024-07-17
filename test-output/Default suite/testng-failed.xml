@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Recipes_LFV_Diet.LFV_eliminate">
+      <class name="Recipes_LFV_Diet.LFV_ToAdd">
         <methods>
+          <include name="setUpDriver"/>
           <include name="teardown"/>
           <include name="extractRecipe"/>
         </methods>
-      </class> <!-- Recipes_LFV_Diet.LFV_eliminate -->
+      </class> <!-- Recipes_LFV_Diet.LFV_ToAdd -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

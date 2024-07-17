@@ -7,18 +7,23 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 public class baseclass {
 
-	public WebDriver driver;
+	public WebDriver driver=null;
 
-	@Test
+	@BeforeTest
 	public void setUpDriver() {
 
 		ChromeOptions opt = new ChromeOptions();
 		opt.addArguments("--remote-allow-origins=*");
 		opt.addArguments("--headless");
 		driver = new ChromeDriver(opt);
-		driver.get("http://www.tarladalal.com/");
+		driver.get("https://www.tarladalal.com/");
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 
@@ -27,7 +32,7 @@ public class baseclass {
 	@AfterClass
 	public void teardown() throws InterruptedException {
 		Thread.sleep(3000);
-		driver.close();
+		driver.quit();
 
 	}
 }
