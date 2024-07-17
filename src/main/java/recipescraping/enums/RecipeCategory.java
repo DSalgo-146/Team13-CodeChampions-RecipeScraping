@@ -4,6 +4,6 @@ package recipescraping.enums;
  */
 public enum RecipeCategory {
 	
-	BREAKFAST, LUNCH, SNACK, DINNER
+	BREAKFAST, LUNCH, SNACK, DINNER, UNKNOWN
 
 }

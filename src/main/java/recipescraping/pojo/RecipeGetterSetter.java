@@ -12,15 +12,15 @@ public class RecipeGetterSetter {
 	private String recipeName;
 	private List<String> ingredients;
 	private List<String> tags;
-	private List<String> preparationMethod;
+	private String preparationMethod;
 	private String preparationTime;
 	private String cookingTime;
 	private int noOfServings;
 	private String cuisineCategory;
-	private  String recipeCategory; 
-	//private  RecipeCategory recipeCategory; //RecipeCategory is enum class
+	private  RecipeCategory recipeCategory; //RecipeCategory is enum class
 	private FoodCategory foodCategory;//FoodCategory is enum class
 	private String recipeDescription;
+	private String nutrientValues;
 	
 	
 	public String getRecipeUrl() {
@@ -44,10 +44,10 @@ public class RecipeGetterSetter {
 		this.recipeName = recipeName;
 	}
 
-	public String getRecipeCategory() {
+	public RecipeCategory getRecipeCategory() {
 		return recipeCategory;
 	}
-	public void setRecipeCategory(String recipeCategory) {
+	public void setRecipeCategory(RecipeCategory recipeCategory) {
 		this.recipeCategory = recipeCategory;
 	}
 
@@ -73,7 +73,7 @@ public class RecipeGetterSetter {
 	}
 	
 	public String getCookingTime() {
-		return preparationTime;
+		return cookingTime;
 	}
 	public void setCookingTime(String cookTime) {
 		this.cookingTime = cookTime;
@@ -86,10 +86,10 @@ public class RecipeGetterSetter {
 		this.tags = tags;
 	}
 	
-	public List<String> getPreparationMethod() {
+	public String  getPreparationMethod() {
 		return preparationMethod;
 	}
-	public void setPreparationMethod(List<String> preparationMethod) {
+	public void setPreparationMethod(String preparationMethod) {
 		this.preparationMethod = preparationMethod;
 	}
 	
@@ -112,6 +112,13 @@ public class RecipeGetterSetter {
 	}
 	public void setRecipeDescription(String recipeDescription) {
 		this.recipeDescription = recipeDescription;
+	}
+	
+	public String getNutrientValues() {
+		return nutrientValues;
+	}
+	public void setNutrientValues(String nutrientValues) {
+		this.nutrientValues = nutrientValues;
 	}
 	
 	@Override

@@ -23,7 +23,7 @@ public class RecipeDetailsDBUtil {
     }
 
     public static void createRecipe(RecipeGetterSetter recipe, String tableName) { 
-        String sql = "INSERT INTO "+tableName+" (recipeId, recipeUrl, recipeName, ingredients, tags, preparationMethod, preparationTime, cookingTime, noOfServings, cuisineCategory, recipeCategory, foodCategory, recipeDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO "+tableName+" (recipeId, recipeUrl, recipeName, ingredients, tags, preparationMethod, preparationTime, cookingTime, noOfServings, cuisineCategory, recipeCategory, foodCategory, nutrientValues,recipeDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, recipe.getRecipeId());
@@ -36,10 +36,11 @@ public class RecipeDetailsDBUtil {
             pstmt.setString(8, recipe.getCookingTime());
             pstmt.setInt(9, recipe.getNoOfServings());
             pstmt.setString(10, recipe.getCuisineCategory());
-            pstmt.setString(11, recipe.getRecipeCategory());
-            //pstmt.setString(12, recipe.getFoodCategory().name());
-            pstmt.setString(12, "");
-            pstmt.setString(13, recipe.getRecipeDescription());
+            pstmt.setString(11, recipe.getRecipeCategory().name());
+            pstmt.setString(12, recipe.getFoodCategory().name());
+            pstmt.setString(13, recipe.getNutrientValues());
+            pstmt.setString(14, recipe.getRecipeDescription());
+            
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

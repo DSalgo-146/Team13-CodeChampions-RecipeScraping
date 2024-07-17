@@ -2,12 +2,17 @@ package recipescraping.pages;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import recipescraping.enums.FoodCategory;
 import recipescraping.enums.RecipeCategory;
 import recipescraping.pojo.RecipeGetterSetter;
 
@@ -54,7 +59,7 @@ public class RecipeDetailsPage {
 		recipe.setRecipeId(getRecipeId(url));
 		recipe.setRecipeName(getRecipeName(url));
 		recipe.setRecipeCategory(getRecipeCategory(url));
-		// recipe.setFoodCategory(getFoofCategory(url));
+		recipe.setFoodCategory(getFoodCategory(url));
 		recipe.setIngredients(getIngredients(url));
 		recipe.setPreparationTime(getPreparationTime(url));
 		recipe.setCookingTime(getCookingTime(url));
@@ -63,6 +68,7 @@ public class RecipeDetailsPage {
 		recipe.setCuisineCategory(getCuisineCategory(url));
 		recipe.setPreparationMethod(getPreparationMethod(url));
 		recipe.setRecipeDescription(getRecipeDescription(url));
+		recipe.setNutrientValues(getNutrientValues(url));
 		recipe.setRecipeUrl(url);
 
 		return recipe; // returning a recipe object
@@ -148,31 +154,45 @@ public class RecipeDetailsPage {
 	}
 
 	// ***Recipe Category
-	public String getRecipeCategory(String url) {
+	public RecipeCategory getRecipeCategory(String url) {
+	    List<String> tags = getTags(url); // calling the getTags() method
 
-		List<String> tags = getTags(url);// calling the getTags() method
-		List<String> RecipeCategories = Arrays.asList("Breakfast", "Lunch", "Snacks", "Dinner", "Desserts", "Soups");
-
-		for (String tag : tags) {
-			for (String category : RecipeCategories) {
-				if (tag.contains(category)) {
-					return category;
-				}
-			}
-		}
-		return null; // Return null if no recipe category is found
+	    for (String tag : tags) {
+	        for (RecipeCategory category : RecipeCategory.values()) {
+	            if (tag.toLowerCase().contains(category.name().toLowerCase())) {
+	                return category;
+	            }
+	        }
+	    }
+	    return RecipeCategory.UNKNOWN; // Return UNKNOWN if no recipe category is found
 	}
+	
+	
+	// ***Food Category
+		public FoodCategory getFoodCategory(String url) {
+		    List<String> tags = getTags(url); // calling the getTags() method
+
+		    for (String tag : tags) {
+		        for (FoodCategory category : FoodCategory.values()) {
+		            if (tag.toLowerCase().contains(category.name().toLowerCase())) {
+		                return category;
+		            }
+		        }
+		    }
+		    return FoodCategory.UNKNOWN; // Return UNKNOWN if no recipe category is found
+		}
+
 
 	// ***Preparation Method
-	public List<String> getPreparationMethod(String url) {
-		List<String> preparationMethodList = new ArrayList<>();
+	public String getPreparationMethod(String url) {
+		String preparationMethodStr =" ";
 		// Extract the text of each step, add numbering, and add to the list
 		int methodNumber = 1;
 		for (WebElement method : preparationMethod) {
-			preparationMethodList.add(methodNumber + ". " + method.getText());
+			preparationMethodStr =preparationMethodStr + methodNumber + ". " + method.getText();
 			methodNumber++;
 		}
-		return preparationMethodList;
+		return preparationMethodStr;
 	}
 
 	// ***Recipe Description
@@ -183,12 +203,29 @@ public class RecipeDetailsPage {
 		return recipeDescriptionText;
 	}
 
-	// *****Method to get the recipe category from the database table using recipe
-	// id****
-	// private RecipeCategory getRecipeCategoryFromDatabase(String recipeId) {
-	// String query = "select recipe_category from main_recipe_category where
-	// recipe_id=" +recipeId;
-
-	// }
+	// Nutrients value of recipe
+	public String getNutrientValues(String url) {
+	    // Find the rows of the table
+	    List<WebElement> rows = driver.findElements(By.xpath("//table[@id='rcpnutrients']//tr"));
+	    int colWidth = 20; // Adjust column width to a more appropriate value
+       // Map<String,String> newNutrientMap=new HashMap<>();
+        
+	    // Initialize a StringBuilder to accumulate the nutrient values
+	    StringBuilder nutrientValues = new StringBuilder();
+	   // nutrientValues.append("Nutrient Values (Abbrv) per piece\n");
+	    // Loop through each row
+	    for (WebElement row : rows) {
+	        List<WebElement> cells = row.findElements(By.tagName("td"));
+	        for (WebElement cell : cells) {
+	            String cellText = cell.getText().trim();
+	            nutrientValues.append(String.format("%-" + colWidth + "s", cellText));
+	        }
+	        nutrientValues.append("\n");
+	    }
+	   // System.out.println("Nutrient Values"+nutrientValues);
+	    // Return the accumulated nutrient values
+	    return nutrientValues.toString();
+	}
 
 }
+

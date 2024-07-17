@@ -37,14 +37,14 @@ public class RecipeDetailsPageTest {
 	
 	@Test
 	public void testGetRecipeDetails() {
-		String url = "https://www.tarladalal.com/curried-carrot-soup-800r";
+		String url = "https://www.tarladalal.com/achar-dip-achari-dip-22718r";
 		String id="800";
 		driver. get(url);
 		Map<String, String> RecipeIDUrlMap = new HashMap<String, String>();
 		RecipeIDUrlMap.put(id, "https://www.tarladalal.com/curried-carrot-soup-800r");
 		RecipeDetailsPage page = new RecipeDetailsPage(driver);//page instantiation
 		RecipeGetterSetter recipe = page.getRecipeDetails(id,url);
-		//assertEquals("22576", recipe.getRecipeId());
+		
 		System.out.println(recipe);
 		
 		
