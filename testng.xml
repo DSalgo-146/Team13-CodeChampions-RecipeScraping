@@ -4,6 +4,7 @@
   <test thread-count="5" name="Test">
     <classes>
       <class name="Base.baseclass"/>
+      <class name="Recipes_LFV_Diet.LFV_OptionalRecipe"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
