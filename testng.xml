@@ -3,7 +3,11 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="Base.baseclass"/>
+      <class name="Pagination.PaginationAndClick"/>
+      <class name="Recipes_LFV_Diet.LFV_ToAdd"/>
+      <class name="Recipes_LCHF_Diet.LCHF__Eliminate"/>
+      <class name="Recipes_LFV_Diet.LFV_Eliminate"/>
+      <class name="Recipes_LCHF_Diet.LCHF_Eliminate"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
