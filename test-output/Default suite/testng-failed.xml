@@ -3,6 +3,7 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
+<<<<<<< HEAD
       <class name="Allergies.LFV_Allergy_Milk">
         <methods>
           <include name="extractRecipe"/>
@@ -10,6 +11,14 @@
           <include name="teardown"/>
         </methods>
       </class> <!-- Allergies.LFV_Allergy_Milk -->
+=======
+      <class name="Recipes_LCHF_Diet.LCHF_Eliminate">
+        <methods>
+          <include name="extractRecipe"/>
+          <include name="teardown"/>
+        </methods>
+      </class> <!-- Recipes_LCHF_Diet.LCHF_Eliminate -->
+>>>>>>> 9aad87c31c45ed14d6c4b2884a054ca549d6248f
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,5 +1,6 @@
 package Recipes_LFV_Diet;
 
+import org.testng.annotations.Test;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
