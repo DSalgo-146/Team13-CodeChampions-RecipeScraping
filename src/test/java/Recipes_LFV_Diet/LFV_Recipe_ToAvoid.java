@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,12 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.sql.DriverManager;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import Base.baseclass;
-
+//import Utilities.RecipeDetailsDBUtil;
 
 public class LFV_Recipe_ToAvoid extends baseclass {
     public int finalno;
@@ -26,24 +30,25 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 	public String tag = null, noofserve = null, cuisinecategory = null, recipedesc = null;
 	public Connection connection;
 	
-    private static final String URL = "jdbc:postgresql://localhost:5432/Receipe_Scrapping";
+    private static final String URL = "jdbc:postgresql://localhost:5432/recipescraping_db";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "000000";
+    private static final String PASSWORD = "sdet159";
     
    
 	@Test
 	public void extractRecipe() throws InterruptedException, IOException, SQLException, ClassNotFoundException {
-		List<String> eliminators = Arrays.asList(new String[] { "Ham", "Sausage", "tinned fish", "tuna",
-				"sardines", "yams", "beets", "parsnip", "turnip", "rutabagas", "carrot", "yuca", "kohirabi", "celery root", 
-				"horseradish", "daikon", "jicama","radish", "pumpkin", "squash", "Whole fat milk", "low fat milk", "fat free milk", 
-				"Evaporated milk","condensed milk", "curd", "buttermilk", "ice cream", "flavored milk ", "sweetened yogurt", "soft cheese", 
-				"grain","wheat", "oat", "barely", "rice", "millet", "jowar", "bajra", "corn", "dal", "lentil", "banana", "mango", "papaya", 
-				"plantain", "apple","orange", "pineapple", " pear ", "tangerine", "all melon varietes", " peach", "plum", "nectarine","avocado", 
-				"olive oil", "coconut oil","soybean oil", "corn oil", "safflower oil", "sunflower oil", "rapeseed oil","peanut oil", 
-				"cottonseed oil", " canola oil ", "mustard oil","sugar", "jaggery", "glucose", "fructose", "corn syrup", "cane sugar", 
-				"aspartame","cane solids", "maltose", "dextrose", "sorbitol", "mannitol", "xylitol", "maltodextrin",
-				"molasses", "brown rice syrup", "splenda", "nutra sweet", "stevia", "barley malt", "potato", "corn", "pea"});
-//		List<String> toadd = Arrays.asList(new String[] { "Butter","ghee","salmon","mackeral","sardines" });	
+		List<String> eliminators = Arrays.asList(new String[] { "pork", "Meat", "Poultry", "Fish", "Sausage", "ham", "salami",
+				"bacon", "milk", "cheese", "yogurt", "butter", "Ice cream", "egg", "prawn", "Oil", "olive oil",
+				"coconut oil", "soybean oil", "corn oil", "safflower oil", "sunflower oil", "rapeseed oil",
+				"peanut oil", "cottonseed oil", "canola oil", "mustard oil", "cereals", "tinned vegetable", "bread",
+				"maida", "atta", "sooji", "poha", "cornflake", "cornflour", "pasta", "White rice", "pastry", "cakes",
+				"biscuit", "soy", "soy milk", "white miso paste", "soy sauce", "soy curls", "edamame", "soy yogurt",
+				"soy nut", "tofu", "pies", "Chip", "cracker", "potatoe", "sugar", "jaggery", "glucose", "fructose",
+				"corn syrup", "cane sugar", "aspartame", "cane solid", "maltose", "dextrose", "sorbitol", "mannitol",
+				"xylitol    ", "maltodextrin", "molasses", "brown rice syrup", "splenda", "nutra sweet", "stevia",
+				"barley malt" });
+		
+		List<String> avoidrecipe = Arrays.asList(new String[] {"fried food", "ready meals", "Chips", "crackers"});
 		
 	
 	//	try {
@@ -58,7 +63,8 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 		
 	
 		//for (int i = 3; i <= 5; i=i+2) // Recipe Pagination A(3) to Z(53)
-		for (int i = 23; i <= 27; i++) // Recipe Pagination A(3) to Z(53)    "/pageBeginsWithList.size()/"
+		for (int i = 12; i <= 15; /*pageBeginsWithList.size()*/ i++) // Recipe Pagination A(3) to Z(53)
+		
 		{
 			
 				
@@ -85,9 +91,9 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 				} catch (Exception e) {
 					
 				}
-			//for (int j = 2; j <= finalno; j++) // Recipe Pagination 1 to 100000000
+			
 			Map<String, String> recipeIdUrls = new HashMap<>();
-			for (int j = 1; j <= 5; j++) // Recipe Pagination 1 to 100000000
+			for (int j = 1; j <= finalno; j++) 
 			{
 
 				
@@ -130,23 +136,29 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 					catch (Exception e) {
 					}
 				}
-				//System.out.println("**recipearray "+recipeIdUrls);
+				
 			}
 
 				
 				for (Map.Entry<String, String> recipeIdUrlEntry : recipeIdUrls.entrySet()) {
 					String recipeUrl = recipeIdUrlEntry.getValue(); //System.out.println("url "+recipeUrl);
-					String recipeId = recipeIdUrlEntry.getKey(); System.out.println("id "+recipeId);
+					String recipeId = recipeIdUrlEntry.getKey(); //System.out.println("id "+recipeId);
 					
 					driver.navigate().to(recipeUrl);
 					driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                    
 
-					if (isEliminated(eliminators)) {
+					if (isEliminated(eliminators) && isEliminated(avoidrecipe)) {
 
-							
+						
+						
 					
+				
 					} else {
+
+
+//
+						
 						try {
 							WebElement recipeTitle = driver
 									.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
@@ -241,7 +253,7 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 							connection = DriverManager.getConnection(URL, USER, PASSWORD);	
 
 							
-							String sql = "INSERT INTO lfv_eliminate_ttoz (recipeid, recipename, recipecategory, foodcategory, ingredients, preparationtime, cookingtime, tags, noOfServings, cuisineCategory, recipeDescription, preparationMethod, nutrientvalues, recipeUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+							String sql = "INSERT INTO lfv_Recipe_ToAvoid (recipeid, recipename, recipecategory, foodcategory, ingredients, preparationtime, cookingtime, tags, noOfServings, cuisineCategory, recipeDescription, preparationMethod, nutrientvalues, recipeUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 							PreparedStatement preparedstatement = connection.prepareStatement(sql);
 							preparedstatement.setString(1, recipeId);
 							preparedstatement.setString(2, recipetitle);
@@ -259,8 +271,6 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 							preparedstatement.setString(14, recipeUrl);
 							preparedstatement.executeUpdate();
 						
-					
-			
 						
 					}
 
@@ -299,5 +309,7 @@ public class LFV_Recipe_ToAvoid extends baseclass {
 		return isEliminatorPresent.get();
 	} 
 
-//	
+	
+	
+
 }

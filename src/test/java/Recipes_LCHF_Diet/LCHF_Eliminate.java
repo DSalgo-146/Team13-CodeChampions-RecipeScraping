@@ -64,7 +64,7 @@ public class LCHF_Eliminate extends baseclass {
 		
 	
 		//for (int i = 3; i <= 5; i=i+2) // Recipe Pagination A(3) to Z(53)
-		for (int i = 2; i <= 5; i++) // Recipe Pagination A(3) to Z(53)    "/*pageBeginsWithList.size()*/"23to 27 t to z
+		for (int i = 2; i <= 5; i++) // Recipe Pagination A(3) to Z(53)    "/pageBeginsWithList.size()/"23to 27 t to z
 		{
 			
 				
@@ -136,7 +136,7 @@ public class LCHF_Eliminate extends baseclass {
 					catch (Exception e) {
 					}
 				}
-				//System.out.println("****recipearray "+recipeIdUrls);
+				//System.out.println("**recipearray "+recipeIdUrls);
 			}
 
 				
@@ -307,5 +307,3 @@ public class LCHF_Eliminate extends baseclass {
 
 	
 }
-
-
