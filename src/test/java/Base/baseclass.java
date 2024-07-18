@@ -13,14 +13,18 @@ public class baseclass {
 
 	@Test
 	public void setUpDriver() {
-
+		//C:\Users\rkalp\eclipse-workspace\Hello-Selenium\src\test\resources\drivers
+//		System.setProperty("webdriver.chrome.driver",
+//				"C:\\Users\\rkalp\\eclipse-workspace\\Hello-Selenium\\src\\test\\resources\\drivers\\chromedriver.exe");
 		ChromeOptions opt = new ChromeOptions();
 		opt.addArguments("--remote-allow-origins=*");
-		opt.addArguments("--headless");
+    //	opt.addArguments("--headless");
 		driver = new ChromeDriver(opt);
 		driver.get("http://www.tarladalal.com/");
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
+		
+		
 
 	}
 

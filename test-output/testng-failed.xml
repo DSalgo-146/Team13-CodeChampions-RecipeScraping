@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Recipes_LFV_Diet.LFV_eliminate">
+      <class name="Recipes_LCHF_Diet.LCHF_Recipe_ToAvoid">
         <methods>
-          <include name="teardown"/>
           <include name="extractRecipe"/>
+          <include name="teardown"/>
         </methods>
-      </class> <!-- Recipes_LFV_Diet.LFV_eliminate -->
+      </class> <!-- Recipes_LCHF_Diet.LCHF_Recipe_ToAvoid -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
