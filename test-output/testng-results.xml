@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-07-16T22:44:16 EDT" name="Default suite" finished-at="2024-07-16T22:46:10 EDT" duration-ms="114014">
+  <suite started-at="2024-07-18T12:51:31 EDT" name="Default suite" finished-at="2024-07-18T13:09:59 EDT" duration-ms="1108264">
     <groups>
     </groups>
-    <test started-at="2024-07-16T22:44:16 EDT" name="Default test" finished-at="2024-07-16T22:46:10 EDT" duration-ms="114014">
-      <class name="Recipes_LFV_Diet.LFV_ToAdd">
-        <test-method is-config="true" signature="setUpDriver()[pri:0, instance:Recipes_LFV_Diet.LFV_ToAdd@dd8ba08]" started-at="2024-07-16T22:44:16 EDT" name="setUpDriver" finished-at="2024-07-16T22:44:23 EDT" duration-ms="7192" status="PASS">
+    <test started-at="2024-07-18T12:51:31 EDT" name="Default test" finished-at="2024-07-18T13:09:59 EDT" duration-ms="1108264">
+      <class name="Allergies.LFV_Allergy_Milk">
+        <test-method is-config="true" signature="setUpDriver()[pri:0, instance:Allergies.LFV_Allergy_Milk@dd8ba08]" started-at="2024-07-18T12:51:31 EDT" name="setUpDriver" finished-at="2024-07-18T12:51:36 EDT" duration-ms="4463" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpDriver -->
-        <test-method signature="extractRecipe()[pri:0, instance:Recipes_LFV_Diet.LFV_ToAdd@dd8ba08]" started-at="2024-07-16T22:44:23 EDT" name="extractRecipe" finished-at="2024-07-16T22:46:07 EDT" duration-ms="103649" status="PASS">
+        <test-method signature="extractRecipe()[pri:0, instance:Allergies.LFV_Allergy_Milk@dd8ba08]" started-at="2024-07-18T12:51:36 EDT" name="extractRecipe" finished-at="2024-07-18T13:09:56 EDT" duration-ms="1100494" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extractRecipe -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:Recipes_LFV_Diet.LFV_ToAdd@dd8ba08]" started-at="2024-07-16T22:46:07 EDT" name="teardown" finished-at="2024-07-16T22:46:10 EDT" duration-ms="3146" status="PASS">
+        <test-method is-config="true" signature="teardown()[pri:0, instance:Allergies.LFV_Allergy_Milk@dd8ba08]" started-at="2024-07-18T13:09:56 EDT" name="teardown" finished-at="2024-07-18T13:09:59 EDT" duration-ms="3271" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-      </class> <!-- Recipes_LFV_Diet.LFV_ToAdd -->
+      </class> <!-- Allergies.LFV_Allergy_Milk -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

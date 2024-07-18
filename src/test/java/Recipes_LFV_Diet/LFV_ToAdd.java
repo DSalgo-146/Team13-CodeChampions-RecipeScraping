@@ -1,6 +1,7 @@
 package Recipes_LFV_Diet;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -61,8 +62,8 @@ public class LFV_ToAdd extends baseclass {
 				"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
 		
 	
-		//for (int i = 3; i <= 5; i=i+2) // Recipe Pagination A(3) to Z(53)
-		for (int i = 1; i <= 1 /*pageBeginsWithList.size()*/; i++) // Recipe Pagination A(3) to Z(53)
+		//for (int i = 3; i <= 5; i=i+2) 
+		for (int i = 21; i <= 27 /*pageBeginsWithList.size()*/; i++) 
 		{
 			
 				
@@ -89,9 +90,9 @@ public class LFV_ToAdd extends baseclass {
 				} catch (Exception e) {
 					
 				}
-			//for (int j = 2; j <= finalno; j++) // Recipe Pagination 1 to 100000000
+			//for (int j = 2; j <= finalno; j++) 
 			Map<String, String> recipeIdUrls = new HashMap<>();
-			for (int j = 1; j <= 1/*finalno*/; j++) // Recipe Pagination 1 to 100000000
+			for (int j = 1; j <= finalno; j++) 
 			{
 
 				
@@ -146,126 +147,127 @@ public class LFV_ToAdd extends baseclass {
 					driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                    
 
-					if (isEliminated(eliminators)) {
+					if (check_toadd(toadd)) {
 
+						
+						
+					try {
+						WebElement recipeTitle = driver
+								.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
+						System.out.println("Title "+recipeTitle.getText());
+						recipetitle = recipeTitle.getText();
+					} catch(Exception e) {
+					}
+                    try {
+						WebElement recipeCategory = driver.findElement(By.xpath(
+								"//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
+						System.out.println("Recipe Category "+recipeCategory.getText());
+						recipecategory = recipeCategory.getText();
+					} catch(Exception e) {
+					}
+                     try {
+						WebElement foodCategory = driver
+								.findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
+						System.out.println("Food Category "+foodCategory.getText());
+						foodcategory = foodCategory.getText();
+						} catch(Exception e) {
+						}
+                    try {
+						WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
+						System.out.println("Ingredients "+nameOfIngredients.getText());
+						nameofingredients = nameOfIngredients.getText();
+					} catch(Exception e) {
+					}
+                    try {
+						WebElement preparationTime = driver.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
+						System.out.println("Preparation Time "+preparationTime.getText());
+						preptime = preparationTime.getText();
+					} catch(Exception e) {
+					}
+					try {	
+						WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
+						System.out.println("Cook Time "+cookTime.getText());
+						cooktime = cookTime.getText();
+					} catch(Exception e) {
+					}
+                    try {
+						WebElement prepMethod = driver
+								.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
+						System.out.println("Prep Method"+prepMethod.getText());
+						prepmethod = prepMethod.getText();
+					} catch(Exception e) {
+					}
+				    try {
+						WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
+						System.out.println("Nutrients "+nutrients.getText());
+						nutrient = nutrients.getText();
+					} catch(Exception e) {
+					}
+				    
+				    //Tags
+					try {
+						WebElement tags = driver.findElement(By.xpath("//div/a[@itemprop= 'recipeCategory']"));
+						System.out.println("\n"+"Tags:"+tags.getText()+"\n");
+						tag = tags.getText();
+					} catch (Exception e) {
+					}
+					//	No. of servings			
+					try {
+						WebElement noOfServings = driver.findElement(By.id("ctl00_cntrightpanel_lblServes"));
+						System.out.print("\n"+"No.of servings:"+noOfServings.getText()+"\n");
+						noofserve = noOfServings.getText();
+					} catch (Exception e) {
+					}
+					//	Cuisine
+					try {
+						WebElement cuisine = driver.findElement(By.xpath("//div/a[@itemprop= 'recipeCuisine']"));
+						if(cuisine!=null) {
+							System.out.print("\n"+"Cuisine :"+cuisine.getText()+"\n");
+						    cuisinecategory = cuisine.getText();
+						}
+						else {
+							System.out.print("\n"+"No Cuisine information available"+"\n");
+						}
+					} catch (Exception e) {
+					}
+					//description
+					try {
+						WebElement description = driver.findElement(By.id("recipe_description"));
+						System.out.print("\n"+"Description :"+description.getText()+"\n");
+						recipedesc = description.getText();
+					} catch (Exception e) {
+					}
+						
+						System.out.println("Url "+recipeUrl);
+						
+						Class.forName("org.postgresql.Driver");	
+
+						connection = DriverManager.getConnection(URL, USER, PASSWORD);	
+
+						
+						String sql = "INSERT INTO lfv_toadd_ttoz (recipeid, recipename, recipecategory, foodcategory, ingredients, preparationtime, cookingtime, tags, noOfServings, cuisineCategory, recipeDescription, preparationMethod, nutrientvalues, recipeUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						PreparedStatement preparedstatement = connection.prepareStatement(sql);
+						preparedstatement.setString(1, recipeId);
+						preparedstatement.setString(2, recipetitle);
+						preparedstatement.setString(3, recipecategory);
+						preparedstatement.setString(4, foodcategory);
+						preparedstatement.setString(5, nameofingredients);
+						preparedstatement.setString(6, preptime);
+						preparedstatement.setString(7, cooktime);
+						preparedstatement.setString(8, tag);
+						preparedstatement.setString(9, noofserve);
+						preparedstatement.setString(10, cuisinecategory);
+						preparedstatement.setString(11, recipedesc);
+						preparedstatement.setString(12, prepmethod);
+						preparedstatement.setString(13, nutrient);
+						preparedstatement.setString(14, recipeUrl);
+						preparedstatement.executeUpdate();
+					
 				
 					} else {
 
 
-							
-							
-						try {
-							WebElement recipeTitle = driver
-									.findElement(By.xpath("//span[@id= 'ctl00_cntrightpanel_lblRecipeName']"));
-							System.out.println("Title "+recipeTitle.getText());
-							recipetitle = recipeTitle.getText();
-						} catch(Exception e) {
-						}
-                        try {
-							WebElement recipeCategory = driver.findElement(By.xpath(
-									"//span[@itemprop= 'description']/*[contains (text(), 'breakfast') or contains (text(), 'lunch') or contains (text(), 'dinner')]"));
-							System.out.println("Recipe Category "+recipeCategory.getText());
-							recipecategory = recipeCategory.getText();
-						} catch(Exception e) {
-						}
-                         try {
-							WebElement foodCategory = driver
-									.findElement(By.xpath("//a/span[text()= 'No Cooking Veg Indian']"));
-							System.out.println("Food Category "+foodCategory.getText());
-							foodcategory = foodCategory.getText();
- 						} catch(Exception e) {
- 						}
-                        try {
-							WebElement nameOfIngredients = driver.findElement(By.xpath("//div[@id= 'rcpinglist']"));
-							System.out.println("Ingredients "+nameOfIngredients.getText());
-							nameofingredients = nameOfIngredients.getText();
-						} catch(Exception e) {
-						}
-                        try {
-							WebElement preparationTime = driver.findElement(By.xpath("//p/time[@itemprop= 'prepTime']"));
-							System.out.println("Preparation Time "+preparationTime.getText());
-							preptime = preparationTime.getText();
-						} catch(Exception e) {
-						}
-						try {	
-							WebElement cookTime = driver.findElement(By.xpath("//p/time[@itemprop= 'cookTime']"));
-							System.out.println("Cook Time "+cookTime.getText());
-							cooktime = cookTime.getText();
-						} catch(Exception e) {
-						}
-                        try {
-							WebElement prepMethod = driver
-									.findElement(By.xpath("//div[@id= 'ctl00_cntrightpanel_pnlRcpMethod']"));
-							System.out.println("Prep Method"+prepMethod.getText());
-							prepmethod = prepMethod.getText();
-						} catch(Exception e) {
-						}
-					    try {
-							WebElement nutrients = driver.findElement(By.xpath("//table[@id= 'rcpnutrients']"));
-							System.out.println("Nutrients "+nutrients.getText());
-							nutrient = nutrients.getText();
-						} catch(Exception e) {
-						}
-					    
-					    //Tags
-						try {
-							WebElement tags = driver.findElement(By.xpath("//div/a[@itemprop= 'recipeCategory']"));
-							System.out.println("\n"+"Tags:"+tags.getText()+"\n");
-							tag = tags.getText();
-						} catch (Exception e) {
-						}
-						//	No. of servings			
-						try {
-							WebElement noOfServings = driver.findElement(By.id("ctl00_cntrightpanel_lblServes"));
-							System.out.print("\n"+"No.of servings:"+noOfServings.getText()+"\n");
-							noofserve = noOfServings.getText();
-						} catch (Exception e) {
-						}
-						//	Cuisine
-						try {
-							WebElement cuisine = driver.findElement(By.xpath("//div/a[@itemprop= 'recipeCuisine']"));
-							if(cuisine!=null) {
-								System.out.print("\n"+"Cuisine :"+cuisine.getText()+"\n");
-							    cuisinecategory = cuisine.getText();
-							}
-							else {
-								System.out.print("\n"+"No Cuisine information available"+"\n");
-							}
-						} catch (Exception e) {
-						}
-						//description
-						try {
-							WebElement description = driver.findElement(By.id("recipe_description"));
-							System.out.print("\n"+"Description :"+description.getText()+"\n");
-							recipedesc = description.getText();
-						} catch (Exception e) {
-						}
-							
-							System.out.println("Url "+recipeUrl);
-							
-							Class.forName("org.postgresql.Driver");	
 
-							connection = DriverManager.getConnection(URL, USER, PASSWORD);	
-
-							
-							String sql = "INSERT INTO lfv_eliminate (recipeid, recipename, recipecategory, foodcategory, ingredients, preparationtime, cookingtime, tags, noOfServings, cuisineCategory, recipeDescription, preparationMethod, nutrientvalues, recipeUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-							PreparedStatement preparedstatement = connection.prepareStatement(sql);
-							preparedstatement.setString(1, recipeId);
-							preparedstatement.setString(2, recipetitle);
-							preparedstatement.setString(3, recipecategory);
-							preparedstatement.setString(4, foodcategory);
-							preparedstatement.setString(5, nameofingredients);
-							preparedstatement.setString(6, preptime);
-							preparedstatement.setString(7, cooktime);
-							preparedstatement.setString(8, tag);
-							preparedstatement.setString(9, noofserve);
-							preparedstatement.setString(10, cuisinecategory);
-							preparedstatement.setString(11, recipedesc);
-							preparedstatement.setString(12, prepmethod);
-							preparedstatement.setString(13, nutrient);
-							preparedstatement.setString(14, recipeUrl);
-							preparedstatement.executeUpdate();
-						
 						
 						
 					}
