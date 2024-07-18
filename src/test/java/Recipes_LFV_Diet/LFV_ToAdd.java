@@ -1,13 +1,12 @@
 package Recipes_LFV_Diet;
 
-import org.testng.annotations.Test;
 import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-//import java.sql.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,15 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-//import java.sql.DriverManager;
+import java.sql.DriverManager;
 
 import org.openqa.selenium.By;
-//import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import Base.baseclass;
-//import Utilities.RecipeDetailsDBUtil;
+import Utilities.RecipeDetailsDBUtil;
 
 public class LFV_ToAdd extends baseclass {
     public int finalno;
@@ -32,11 +31,11 @@ public class LFV_ToAdd extends baseclass {
 	public String tag = null, noofserve = null, cuisinecategory = null, recipedesc = null;
 	public Connection connection;
 	
-    private static final String URL = "jdbc:postgresql://localhost:5432/Receipe_Scrapping";
+    private static final String URL = "jdbc:postgresql://localhost:5432/recipescraping_db";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "000000";
+    private static final String PASSWORD = "sdet146";
     
-//   sdet146
+   
 	@Test
 	public void extractRecipe() throws InterruptedException, IOException, SQLException, ClassNotFoundException {
 		List<String> eliminators = Arrays.asList(new String[] { "pork", "Meat", "Poultry", "Fish", "Sausage", "ham", "salami",
@@ -63,13 +62,8 @@ public class LFV_ToAdd extends baseclass {
 				"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
 		
 	
-<<<<<<< HEAD
-		//for (int i = 3; i <= 5; i=i+2) 
-		for (int i = 21; i <= 27 /*pageBeginsWithList.size()*/; i++) 
-=======
 		//for (int i = 3; i <= 5; i=i+2) // Recipe Pagination A(3) to Z(53)
-		for (int i = 1; i <= 2 /*pageBeginsWithList.size()*/; i++) // Recipe Pagination A(3) to Z(53)
->>>>>>> 9aad87c31c45ed14d6c4b2884a054ca549d6248f
+		for (int i = 1; i <= 27 /*pageBeginsWithList.size()*/; i++) // Recipe Pagination A(3) to Z(53)
 		{
 			
 				
@@ -99,7 +93,6 @@ public class LFV_ToAdd extends baseclass {
 			//for (int j = 2; j <= finalno; j++) 
 			Map<String, String> recipeIdUrls = new HashMap<>();
 			for (int j = 1; j <= finalno; j++) 
-
 			{
 
 				

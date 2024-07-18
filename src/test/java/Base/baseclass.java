@@ -5,17 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
-//import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class baseclass {
 
-public WebDriver driver= null;
-//	public WebDriver driver;
+	public WebDriver driver=null;
 
-@Test
-public void setUpDriver() {
-	ChromeOptions opt = new ChromeOptions();
+	@BeforeTest
+	public void setUpDriver() {
+
+		ChromeOptions opt = new ChromeOptions();
 		opt.addArguments("--remote-allow-origins=*");
 		opt.addArguments("--headless");
 		driver = new ChromeDriver(opt);
@@ -28,7 +32,7 @@ public void setUpDriver() {
 	@AfterClass
 	public void teardown() throws InterruptedException {
 		Thread.sleep(3000);
-		//driver.close();
+		driver.quit();
 
 	}
 }

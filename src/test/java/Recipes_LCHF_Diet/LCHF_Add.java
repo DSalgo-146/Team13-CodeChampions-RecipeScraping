@@ -52,8 +52,8 @@ public class LCHF_Add extends baseclass {
 				"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
 		
 	
-		//for (int i = 3; i <= 5; i=i+2) 
-		for (int i = 21; i <= 27 /*pageBeginsWithList.size()*/; i++) 
+		//for (int i = 3; i <= 5; i=i+2) // Recipe Pagination A(3) to Z(53)
+		for (int i = 1; i <= 27 /*pageBeginsWithList.size()*/; i++) // Recipe Pagination A(3) to Z(53)
 		{
 			
 				
